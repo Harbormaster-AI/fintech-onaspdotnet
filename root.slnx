@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="fintechonaspdotnet/fintechonaspdotnet.Api.csproj" />
+  <Project Path="fintechonaspdotnet/Tests/fintechonaspdotnet.Tests.csproj" />
+</Solution>
