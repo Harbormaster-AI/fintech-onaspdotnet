@@ -73,7 +73,7 @@ namespace fintechonaspdotnet.Domain;
     );
 
     [ComplexType]
-    public record DateTime(
+    public record DateTime_(
     string Value
     );
 

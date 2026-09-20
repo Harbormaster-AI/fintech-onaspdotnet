@@ -9,7 +9,7 @@ public class Chargeback
  public virtual long? ChargebackId { get; set; } 
  public virtual string? ChargebackReference { get; set; } 
  public virtual Money? Amount { get; set; } 
- public virtual DateTime? PostedAt { get; set; } 
+ public virtual DateTime_? PostedAt { get; set; } 
 public virtual Dispute? Dispute { get; set; } 
 public virtual Transaction? Transaction { get; set; } 
  public virtual ChargebackStage? Stage { get; set; } 

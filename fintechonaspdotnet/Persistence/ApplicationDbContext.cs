@@ -72,235 +72,235 @@ public DbSet<ExchangeRate> ExchangeRates => Set<ExchangeRate>();
         modelBuilder.Entity<Branch>()
             .HasOne<FinancialInstitution>()
             .WithMany(parent => parent.Branches)
-            .HasForeignKey("BranchesId");
+            .HasForeignKey("Branches_Id");
 
         // FinancialInstitution has one or more Customers of type Customer
         modelBuilder.Entity<Customer>()
             .HasOne<FinancialInstitution>()
             .WithMany(parent => parent.Customers)
-            .HasForeignKey("CustomersId");
+            .HasForeignKey("Customers_Id");
 
         // FinancialInstitution has one or more ProductOfferings of type ProductOffering
         modelBuilder.Entity<ProductOffering>()
             .HasOne<FinancialInstitution>()
             .WithMany(parent => parent.ProductOfferings)
-            .HasForeignKey("ProductOfferingsId");
+            .HasForeignKey("ProductOfferings_Id");
 
         // FinancialInstitution has one or more PaymentProcessors of type PaymentProcessor
         modelBuilder.Entity<PaymentProcessor>()
             .HasOne<FinancialInstitution>()
             .WithMany(parent => parent.PaymentProcessors)
-            .HasForeignKey("PaymentProcessorsId");
+            .HasForeignKey("PaymentProcessors_Id");
 
         // FinancialInstitution has one or more CompliancePolicies of type CompliancePolicy
         modelBuilder.Entity<CompliancePolicy>()
             .HasOne<FinancialInstitution>()
             .WithMany(parent => parent.CompliancePolicies)
-            .HasForeignKey("CompliancePoliciesId");
+            .HasForeignKey("CompliancePolicies_Id");
 
         // Branch has one Institution of type FinancialInstitution
         modelBuilder.Entity<Branch>()
             .HasOne(x => x.Institution)
             .WithMany()
-            .HasForeignKey("InstitutionId");
+            .HasForeignKey("Institution_Id");
 
 
         // ProductOffering has one Institution of type FinancialInstitution
         modelBuilder.Entity<ProductOffering>()
             .HasOne(x => x.Institution)
             .WithMany()
-            .HasForeignKey("InstitutionId");
+            .HasForeignKey("Institution_Id");
 
 
         // ProductOffering has one or more PricingPlans of type PricingPlan
         modelBuilder.Entity<PricingPlan>()
             .HasOne<ProductOffering>()
             .WithMany(parent => parent.PricingPlans)
-            .HasForeignKey("PricingPlansId");
+            .HasForeignKey("PricingPlans_Id");
 
         // PricingPlan has one ProductOffering of type ProductOffering
         modelBuilder.Entity<PricingPlan>()
             .HasOne(x => x.ProductOffering)
             .WithMany()
-            .HasForeignKey("ProductOfferingId");
+            .HasForeignKey("ProductOffering_Id");
 
 
         // PricingPlan has one or more FeeSchedules of type FeeSchedule
         modelBuilder.Entity<FeeSchedule>()
             .HasOne<PricingPlan>()
             .WithMany(parent => parent.FeeSchedules)
-            .HasForeignKey("FeeSchedulesId");
+            .HasForeignKey("FeeSchedules_Id");
 
         // PricingPlan has one or more Limits of type UsageLimit
         modelBuilder.Entity<UsageLimit>()
             .HasOne<PricingPlan>()
             .WithMany(parent => parent.Limits)
-            .HasForeignKey("LimitsId");
+            .HasForeignKey("Limits_Id");
 
         // FeeSchedule has one PricingPlan of type PricingPlan
         modelBuilder.Entity<FeeSchedule>()
             .HasOne(x => x.PricingPlan)
             .WithMany()
-            .HasForeignKey("PricingPlanId");
+            .HasForeignKey("PricingPlan_Id");
 
 
         // UsageLimit has one PricingPlan of type PricingPlan
         modelBuilder.Entity<UsageLimit>()
             .HasOne(x => x.PricingPlan)
             .WithMany()
-            .HasForeignKey("PricingPlanId");
+            .HasForeignKey("PricingPlan_Id");
 
 
         // Customer has one Institution of type FinancialInstitution
         modelBuilder.Entity<Customer>()
             .HasOne(x => x.Institution)
             .WithMany()
-            .HasForeignKey("InstitutionId");
+            .HasForeignKey("Institution_Id");
 
 
         // Customer has one or more Accounts of type Account
         modelBuilder.Entity<Account>()
             .HasOne<Customer>()
             .WithMany(parent => parent.Accounts)
-            .HasForeignKey("AccountsId");
+            .HasForeignKey("Accounts_Id");
 
         // Customer has one or more Wallets of type Wallet
         modelBuilder.Entity<Wallet>()
             .HasOne<Customer>()
             .WithMany(parent => parent.Wallets)
-            .HasForeignKey("WalletsId");
+            .HasForeignKey("Wallets_Id");
 
         // Customer has one or more Cards of type PaymentCard
         modelBuilder.Entity<PaymentCard>()
             .HasOne<Customer>()
             .WithMany(parent => parent.Cards)
-            .HasForeignKey("CardsId");
+            .HasForeignKey("Cards_Id");
 
         // Customer has one or more KycProfiles of type KYCProfile
         modelBuilder.Entity<KYCProfile>()
             .HasOne<Customer>()
             .WithMany(parent => parent.KycProfiles)
-            .HasForeignKey("KycProfilesId");
+            .HasForeignKey("KycProfiles_Id");
 
         // Customer has one or more Consents of type Consent
         modelBuilder.Entity<Consent>()
             .HasOne<Customer>()
             .WithMany(parent => parent.Consents)
-            .HasForeignKey("ConsentsId");
+            .HasForeignKey("Consents_Id");
 
         // Customer has one or more Agreements of type Agreement
         modelBuilder.Entity<Agreement>()
             .HasOne<Customer>()
             .WithMany(parent => parent.Agreements)
-            .HasForeignKey("AgreementsId");
+            .HasForeignKey("Agreements_Id");
 
         // Customer has one or more LoanApplications of type LoanApplication
         modelBuilder.Entity<LoanApplication>()
             .HasOne<Customer>()
             .WithMany(parent => parent.LoanApplications)
-            .HasForeignKey("LoanApplicationsId");
+            .HasForeignKey("LoanApplications_Id");
 
         // Customer has one or more Loans of type Loan
         modelBuilder.Entity<Loan>()
             .HasOne<Customer>()
             .WithMany(parent => parent.Loans)
-            .HasForeignKey("LoansId");
+            .HasForeignKey("Loans_Id");
 
         // Customer has one or more Portfolios of type InvestmentPortfolio
         modelBuilder.Entity<InvestmentPortfolio>()
             .HasOne<Customer>()
             .WithMany(parent => parent.Portfolios)
-            .HasForeignKey("PortfoliosId");
+            .HasForeignKey("Portfolios_Id");
 
         // Customer has one or more Disputes of type Dispute
         modelBuilder.Entity<Dispute>()
             .HasOne<Customer>()
             .WithMany(parent => parent.Disputes)
-            .HasForeignKey("DisputesId");
+            .HasForeignKey("Disputes_Id");
 
         // KYCProfile has one Customer of type Customer
         modelBuilder.Entity<KYCProfile>()
             .HasOne(x => x.Customer)
             .WithMany()
-            .HasForeignKey("CustomerId");
+            .HasForeignKey("Customer_Id");
 
 
         // KYCProfile has one or more Documents of type KYCDocument
         modelBuilder.Entity<KYCDocument>()
             .HasOne<KYCProfile>()
             .WithMany(parent => parent.Documents)
-            .HasForeignKey("DocumentsId");
+            .HasForeignKey("Documents_Id");
 
         // KYCProfile has one or more Screenings of type Screening
         modelBuilder.Entity<Screening>()
             .HasOne<KYCProfile>()
             .WithMany(parent => parent.Screenings)
-            .HasForeignKey("ScreeningsId");
+            .HasForeignKey("Screenings_Id");
 
         // KYCProfile has one or more Addresses of type VerifiedAddress
         modelBuilder.Entity<VerifiedAddress>()
             .HasOne<KYCProfile>()
             .WithMany(parent => parent.Addresses)
-            .HasForeignKey("AddressesId");
+            .HasForeignKey("Addresses_Id");
 
         // KYCDocument has one KycProfile of type KYCProfile
         modelBuilder.Entity<KYCDocument>()
             .HasOne(x => x.KycProfile)
             .WithMany()
-            .HasForeignKey("KycProfileId");
+            .HasForeignKey("KycProfile_Id");
 
 
         // Screening has one KycProfile of type KYCProfile
         modelBuilder.Entity<Screening>()
             .HasOne(x => x.KycProfile)
             .WithMany()
-            .HasForeignKey("KycProfileId");
+            .HasForeignKey("KycProfile_Id");
 
 
         // Screening has one or more Alerts of type ComplianceAlert
         modelBuilder.Entity<ComplianceAlert>()
             .HasOne<Screening>()
             .WithMany(parent => parent.Alerts)
-            .HasForeignKey("AlertsId");
+            .HasForeignKey("Alerts_Id");
 
         // VerifiedAddress has one KycProfile of type KYCProfile
         modelBuilder.Entity<VerifiedAddress>()
             .HasOne(x => x.KycProfile)
             .WithMany()
-            .HasForeignKey("KycProfileId");
+            .HasForeignKey("KycProfile_Id");
 
 
         // CompliancePolicy has one Institution of type FinancialInstitution
         modelBuilder.Entity<CompliancePolicy>()
             .HasOne(x => x.Institution)
             .WithMany()
-            .HasForeignKey("InstitutionId");
+            .HasForeignKey("Institution_Id");
 
 
         // ComplianceAlert has one Screening of type Screening
         modelBuilder.Entity<ComplianceAlert>()
             .HasOne(x => x.Screening)
             .WithMany()
-            .HasForeignKey("ScreeningId");
+            .HasForeignKey("Screening_Id");
 
         // ComplianceAlert has one Transaction of type Transaction
         modelBuilder.Entity<ComplianceAlert>()
             .HasOne(x => x.Transaction)
             .WithMany()
-            .HasForeignKey("TransactionId");
+            .HasForeignKey("Transaction_Id");
 
 
         // Consent has one Customer of type Customer
         modelBuilder.Entity<Consent>()
             .HasOne(x => x.Customer)
             .WithMany()
-            .HasForeignKey("CustomerId");
+            .HasForeignKey("Customer_Id");
 
         // Consent has one ApiClient of type APIClient
         modelBuilder.Entity<Consent>()
             .HasOne(x => x.ApiClient)
             .WithMany()
-            .HasForeignKey("ApiClientId");
+            .HasForeignKey("ApiClient_Id");
 
 
 
@@ -308,101 +308,101 @@ public DbSet<ExchangeRate> ExchangeRates => Set<ExchangeRate>();
         modelBuilder.Entity<Consent>()
             .HasOne<APIClient>()
             .WithMany(parent => parent.Consents)
-            .HasForeignKey("ConsentsId");
+            .HasForeignKey("Consents_Id");
 
         // Agreement has one Customer of type Customer
         modelBuilder.Entity<Agreement>()
             .HasOne(x => x.Customer)
             .WithMany()
-            .HasForeignKey("CustomerId");
+            .HasForeignKey("Customer_Id");
 
         // Agreement has one ProductOffering of type ProductOffering
         modelBuilder.Entity<Agreement>()
             .HasOne(x => x.ProductOffering)
             .WithMany()
-            .HasForeignKey("ProductOfferingId");
+            .HasForeignKey("ProductOffering_Id");
 
 
         // Account has one Customer of type Customer
         modelBuilder.Entity<Account>()
             .HasOne(x => x.Customer)
             .WithMany()
-            .HasForeignKey("CustomerId");
+            .HasForeignKey("Customer_Id");
 
         // Account has one Institution of type FinancialInstitution
         modelBuilder.Entity<Account>()
             .HasOne(x => x.Institution)
             .WithMany()
-            .HasForeignKey("InstitutionId");
+            .HasForeignKey("Institution_Id");
 
 
         // Account has one or more Transactions of type Transaction
         modelBuilder.Entity<Transaction>()
             .HasOne<Account>()
             .WithMany(parent => parent.Transactions)
-            .HasForeignKey("TransactionsId");
+            .HasForeignKey("Transactions_Id");
 
         // Account has one or more Cards of type PaymentCard
         modelBuilder.Entity<PaymentCard>()
             .HasOne<Account>()
             .WithMany(parent => parent.Cards)
-            .HasForeignKey("CardsId");
+            .HasForeignKey("Cards_Id");
 
         // Account has one or more Statements of type AccountStatement
         modelBuilder.Entity<AccountStatement>()
             .HasOne<Account>()
             .WithMany(parent => parent.Statements)
-            .HasForeignKey("StatementsId");
+            .HasForeignKey("Statements_Id");
 
         // Account has one or more Mandates of type DirectDebitMandate
         modelBuilder.Entity<DirectDebitMandate>()
             .HasOne<Account>()
             .WithMany(parent => parent.Mandates)
-            .HasForeignKey("MandatesId");
+            .HasForeignKey("Mandates_Id");
 
         // Wallet has one Customer of type Customer
         modelBuilder.Entity<Wallet>()
             .HasOne(x => x.Customer)
             .WithMany()
-            .HasForeignKey("CustomerId");
+            .HasForeignKey("Customer_Id");
 
 
         // Wallet has one or more Transactions of type Transaction
         modelBuilder.Entity<Transaction>()
             .HasOne<Wallet>()
             .WithMany(parent => parent.Transactions)
-            .HasForeignKey("TransactionsId");
+            .HasForeignKey("Transactions_Id");
 
         // PaymentCard has one Customer of type Customer
         modelBuilder.Entity<PaymentCard>()
             .HasOne(x => x.Customer)
             .WithMany()
-            .HasForeignKey("CustomerId");
+            .HasForeignKey("Customer_Id");
 
         // PaymentCard has one Account of type Account
         modelBuilder.Entity<PaymentCard>()
             .HasOne(x => x.Account)
             .WithMany()
-            .HasForeignKey("AccountId");
+            .HasForeignKey("Account_Id");
 
 
         // PaymentCard has one or more Tokenizations of type CardTokenization
         modelBuilder.Entity<CardTokenization>()
             .HasOne<PaymentCard>()
             .WithMany(parent => parent.Tokenizations)
-            .HasForeignKey("TokenizationsId");
+            .HasForeignKey("Tokenizations_Id");
 
         // PaymentCard has one or more Disputes of type Dispute
         modelBuilder.Entity<Dispute>()
             .HasOne<PaymentCard>()
             .WithMany(parent => parent.Disputes)
-            .HasForeignKey("DisputesId");
+            .HasForeignKey("Disputes_Id");
 
         // CardTokenization has one Card of type PaymentCard
         modelBuilder.Entity<CardTokenization>()
             .HasOne(x => x.Card)
             .WithMany()
-            .HasForeignKey("CardId");
+            .HasForeignKey("Card_Id");
 
 
 
@@ -410,56 +410,56 @@ public DbSet<ExchangeRate> ExchangeRates => Set<ExchangeRate>();
         modelBuilder.Entity<Terminal>()
             .HasOne<Merchant>()
             .WithMany(parent => parent.Terminals)
-            .HasForeignKey("TerminalsId");
+            .HasForeignKey("Terminals_Id");
 
         // Merchant has one or more PaymentContracts of type PaymentContract
         modelBuilder.Entity<PaymentContract>()
             .HasOne<Merchant>()
             .WithMany(parent => parent.PaymentContracts)
-            .HasForeignKey("PaymentContractsId");
+            .HasForeignKey("PaymentContracts_Id");
 
         // Merchant has one or more Payouts of type Payout
         modelBuilder.Entity<Payout>()
             .HasOne<Merchant>()
             .WithMany(parent => parent.Payouts)
-            .HasForeignKey("PayoutsId");
+            .HasForeignKey("Payouts_Id");
 
         // Merchant has one or more Settlements of type SettlementBatch
         modelBuilder.Entity<SettlementBatch>()
             .HasOne<Merchant>()
             .WithMany(parent => parent.Settlements)
-            .HasForeignKey("SettlementsId");
+            .HasForeignKey("Settlements_Id");
 
         // Merchant has one or more Disputes of type Dispute
         modelBuilder.Entity<Dispute>()
             .HasOne<Merchant>()
             .WithMany(parent => parent.Disputes)
-            .HasForeignKey("DisputesId");
+            .HasForeignKey("Disputes_Id");
 
         // Merchant has one or more Invoices of type Invoice
         modelBuilder.Entity<Invoice>()
             .HasOne<Merchant>()
             .WithMany(parent => parent.Invoices)
-            .HasForeignKey("InvoicesId");
+            .HasForeignKey("Invoices_Id");
 
         // Terminal has one Merchant of type Merchant
         modelBuilder.Entity<Terminal>()
             .HasOne(x => x.Merchant)
             .WithMany()
-            .HasForeignKey("MerchantId");
+            .HasForeignKey("Merchant_Id");
 
 
         // PaymentContract has one Merchant of type Merchant
         modelBuilder.Entity<PaymentContract>()
             .HasOne(x => x.Merchant)
             .WithMany()
-            .HasForeignKey("MerchantId");
+            .HasForeignKey("Merchant_Id");
 
         // PaymentContract has one Acquirer of type PaymentProcessor
         modelBuilder.Entity<PaymentContract>()
             .HasOne(x => x.Acquirer)
             .WithMany()
-            .HasForeignKey("AcquirerId");
+            .HasForeignKey("Acquirer_Id");
 
 
 
@@ -467,253 +467,253 @@ public DbSet<ExchangeRate> ExchangeRates => Set<ExchangeRate>();
         modelBuilder.Entity<FinancialInstitution>()
             .HasOne<PaymentProcessor>()
             .WithMany(parent => parent.Institutions)
-            .HasForeignKey("InstitutionsId");
+            .HasForeignKey("Institutions_Id");
 
         // PaymentProcessor has one or more Contracts of type PaymentContract
         modelBuilder.Entity<PaymentContract>()
             .HasOne<PaymentProcessor>()
             .WithMany(parent => parent.Contracts)
-            .HasForeignKey("ContractsId");
+            .HasForeignKey("Contracts_Id");
 
         // PaymentProcessor has one or more Settlements of type SettlementBatch
         modelBuilder.Entity<SettlementBatch>()
             .HasOne<PaymentProcessor>()
             .WithMany(parent => parent.Settlements)
-            .HasForeignKey("SettlementsId");
+            .HasForeignKey("Settlements_Id");
 
         // Transaction has one Account of type Account
         modelBuilder.Entity<Transaction>()
             .HasOne(x => x.Account)
             .WithMany()
-            .HasForeignKey("AccountId");
+            .HasForeignKey("Account_Id");
 
         // Transaction has one Wallet of type Wallet
         modelBuilder.Entity<Transaction>()
             .HasOne(x => x.Wallet)
             .WithMany()
-            .HasForeignKey("WalletId");
+            .HasForeignKey("Wallet_Id");
 
         // Transaction has one PaymentOrder of type PaymentOrder
         modelBuilder.Entity<Transaction>()
             .HasOne(x => x.PaymentOrder)
             .WithMany()
-            .HasForeignKey("PaymentOrderId");
+            .HasForeignKey("PaymentOrder_Id");
 
         // Transaction has one Merchant of type Merchant
         modelBuilder.Entity<Transaction>()
             .HasOne(x => x.Merchant)
             .WithMany()
-            .HasForeignKey("MerchantId");
+            .HasForeignKey("Merchant_Id");
 
         // Transaction has one Card of type PaymentCard
         modelBuilder.Entity<Transaction>()
             .HasOne(x => x.Card)
             .WithMany()
-            .HasForeignKey("CardId");
+            .HasForeignKey("Card_Id");
 
 
         // Transaction has one or more RelatedTransactions of type Transaction
         modelBuilder.Entity<Transaction>()
             .HasOne<Transaction>()
             .WithMany(parent => parent.RelatedTransactions)
-            .HasForeignKey("RelatedTransactionsId");
+            .HasForeignKey("RelatedTransactions_Id");
 
         // Transaction has one or more Alerts of type ComplianceAlert
         modelBuilder.Entity<ComplianceAlert>()
             .HasOne<Transaction>()
             .WithMany(parent => parent.Alerts)
-            .HasForeignKey("AlertsId");
+            .HasForeignKey("Alerts_Id");
 
         // PaymentOrder has one SourceAccount of type Account
         modelBuilder.Entity<PaymentOrder>()
             .HasOne(x => x.SourceAccount)
             .WithMany()
-            .HasForeignKey("SourceAccountId");
+            .HasForeignKey("SourceAccount_Id");
 
         // PaymentOrder has one DestinationAccount of type Account
         modelBuilder.Entity<PaymentOrder>()
             .HasOne(x => x.DestinationAccount)
             .WithMany()
-            .HasForeignKey("DestinationAccountId");
+            .HasForeignKey("DestinationAccount_Id");
 
         // PaymentOrder has one Beneficiary of type Beneficiary
         modelBuilder.Entity<PaymentOrder>()
             .HasOne(x => x.Beneficiary)
             .WithMany()
-            .HasForeignKey("BeneficiaryId");
+            .HasForeignKey("Beneficiary_Id");
 
         // PaymentOrder has one FxDeal of type FXDeal
         modelBuilder.Entity<PaymentOrder>()
             .HasOne(x => x.FxDeal)
             .WithMany()
-            .HasForeignKey("FxDealId");
+            .HasForeignKey("FxDeal_Id");
 
 
         // PaymentOrder has one or more Transactions of type Transaction
         modelBuilder.Entity<Transaction>()
             .HasOne<PaymentOrder>()
             .WithMany(parent => parent.Transactions)
-            .HasForeignKey("TransactionsId");
+            .HasForeignKey("Transactions_Id");
 
         // PaymentOrder has one or more Fees of type AppliedFee
         modelBuilder.Entity<AppliedFee>()
             .HasOne<PaymentOrder>()
             .WithMany(parent => parent.Fees)
-            .HasForeignKey("FeesId");
+            .HasForeignKey("Fees_Id");
 
         // Beneficiary has one Customer of type Customer
         modelBuilder.Entity<Beneficiary>()
             .HasOne(x => x.Customer)
             .WithMany()
-            .HasForeignKey("CustomerId");
+            .HasForeignKey("Customer_Id");
 
 
         // AppliedFee has one PaymentOrder of type PaymentOrder
         modelBuilder.Entity<AppliedFee>()
             .HasOne(x => x.PaymentOrder)
             .WithMany()
-            .HasForeignKey("PaymentOrderId");
+            .HasForeignKey("PaymentOrder_Id");
 
         // AppliedFee has one Transaction of type Transaction
         modelBuilder.Entity<AppliedFee>()
             .HasOne(x => x.Transaction)
             .WithMany()
-            .HasForeignKey("TransactionId");
+            .HasForeignKey("Transaction_Id");
 
 
         // FXQuote has one RequestedBy of type Customer
         modelBuilder.Entity<FXQuote>()
             .HasOne(x => x.RequestedBy)
             .WithMany()
-            .HasForeignKey("RequestedById");
+            .HasForeignKey("RequestedBy_Id");
 
 
         // FXDeal has one Quote of type FXQuote
         modelBuilder.Entity<FXDeal>()
             .HasOne(x => x.Quote)
             .WithMany()
-            .HasForeignKey("QuoteId");
+            .HasForeignKey("Quote_Id");
 
 
         // FXDeal has one or more PaymentOrders of type PaymentOrder
         modelBuilder.Entity<PaymentOrder>()
             .HasOne<FXDeal>()
             .WithMany(parent => parent.PaymentOrders)
-            .HasForeignKey("PaymentOrdersId");
+            .HasForeignKey("PaymentOrders_Id");
 
         // SettlementBatch has one Processor of type PaymentProcessor
         modelBuilder.Entity<SettlementBatch>()
             .HasOne(x => x.Processor)
             .WithMany()
-            .HasForeignKey("ProcessorId");
+            .HasForeignKey("Processor_Id");
 
         // SettlementBatch has one Merchant of type Merchant
         modelBuilder.Entity<SettlementBatch>()
             .HasOne(x => x.Merchant)
             .WithMany()
-            .HasForeignKey("MerchantId");
+            .HasForeignKey("Merchant_Id");
 
 
         // SettlementBatch has one or more Payouts of type Payout
         modelBuilder.Entity<Payout>()
             .HasOne<SettlementBatch>()
             .WithMany(parent => parent.Payouts)
-            .HasForeignKey("PayoutsId");
+            .HasForeignKey("Payouts_Id");
 
         // SettlementBatch has one or more Transactions of type Transaction
         modelBuilder.Entity<Transaction>()
             .HasOne<SettlementBatch>()
             .WithMany(parent => parent.Transactions)
-            .HasForeignKey("TransactionsId");
+            .HasForeignKey("Transactions_Id");
 
         // Payout has one Merchant of type Merchant
         modelBuilder.Entity<Payout>()
             .HasOne(x => x.Merchant)
             .WithMany()
-            .HasForeignKey("MerchantId");
+            .HasForeignKey("Merchant_Id");
 
         // Payout has one SettlementBatch of type SettlementBatch
         modelBuilder.Entity<Payout>()
             .HasOne(x => x.SettlementBatch)
             .WithMany()
-            .HasForeignKey("SettlementBatchId");
+            .HasForeignKey("SettlementBatch_Id");
 
         // Payout has one DestinationAccount of type Account
         modelBuilder.Entity<Payout>()
             .HasOne(x => x.DestinationAccount)
             .WithMany()
-            .HasForeignKey("DestinationAccountId");
+            .HasForeignKey("DestinationAccount_Id");
 
 
         // Dispute has one Transaction of type Transaction
         modelBuilder.Entity<Dispute>()
             .HasOne(x => x.Transaction)
             .WithMany()
-            .HasForeignKey("TransactionId");
+            .HasForeignKey("Transaction_Id");
 
         // Dispute has one Card of type PaymentCard
         modelBuilder.Entity<Dispute>()
             .HasOne(x => x.Card)
             .WithMany()
-            .HasForeignKey("CardId");
+            .HasForeignKey("Card_Id");
 
         // Dispute has one Merchant of type Merchant
         modelBuilder.Entity<Dispute>()
             .HasOne(x => x.Merchant)
             .WithMany()
-            .HasForeignKey("MerchantId");
+            .HasForeignKey("Merchant_Id");
 
 
         // Dispute has one or more Chargebacks of type Chargeback
         modelBuilder.Entity<Chargeback>()
             .HasOne<Dispute>()
             .WithMany(parent => parent.Chargebacks)
-            .HasForeignKey("ChargebacksId");
+            .HasForeignKey("Chargebacks_Id");
 
         // Chargeback has one Dispute of type Dispute
         modelBuilder.Entity<Chargeback>()
             .HasOne(x => x.Dispute)
             .WithMany()
-            .HasForeignKey("DisputeId");
+            .HasForeignKey("Dispute_Id");
 
         // Chargeback has one Transaction of type Transaction
         modelBuilder.Entity<Chargeback>()
             .HasOne(x => x.Transaction)
             .WithMany()
-            .HasForeignKey("TransactionId");
+            .HasForeignKey("Transaction_Id");
 
 
         // Invoice has one Merchant of type Merchant
         modelBuilder.Entity<Invoice>()
             .HasOne(x => x.Merchant)
             .WithMany()
-            .HasForeignKey("MerchantId");
+            .HasForeignKey("Merchant_Id");
 
 
         // Invoice has one or more Payments of type PaymentOrder
         modelBuilder.Entity<PaymentOrder>()
             .HasOne<Invoice>()
             .WithMany(parent => parent.Payments)
-            .HasForeignKey("PaymentsId");
+            .HasForeignKey("Payments_Id");
 
         // AccountStatement has one Account of type Account
         modelBuilder.Entity<AccountStatement>()
             .HasOne(x => x.Account)
             .WithMany()
-            .HasForeignKey("AccountId");
+            .HasForeignKey("Account_Id");
 
 
         // DirectDebitMandate has one Account of type Account
         modelBuilder.Entity<DirectDebitMandate>()
             .HasOne(x => x.Account)
             .WithMany()
-            .HasForeignKey("AccountId");
+            .HasForeignKey("Account_Id");
 
         // DirectDebitMandate has one Creditor of type Creditor
         modelBuilder.Entity<DirectDebitMandate>()
             .HasOne(x => x.Creditor)
             .WithMany()
-            .HasForeignKey("CreditorId");
+            .HasForeignKey("Creditor_Id");
 
 
 
@@ -721,198 +721,198 @@ public DbSet<ExchangeRate> ExchangeRates => Set<ExchangeRate>();
         modelBuilder.Entity<DirectDebitMandate>()
             .HasOne<Creditor>()
             .WithMany(parent => parent.Mandates)
-            .HasForeignKey("MandatesId");
+            .HasForeignKey("Mandates_Id");
 
         // LoanApplication has one Customer of type Customer
         modelBuilder.Entity<LoanApplication>()
             .HasOne(x => x.Customer)
             .WithMany()
-            .HasForeignKey("CustomerId");
+            .HasForeignKey("Customer_Id");
 
         // LoanApplication has one RiskAssessment of type RiskAssessment
         modelBuilder.Entity<LoanApplication>()
             .HasOne(x => x.RiskAssessment)
             .WithMany()
-            .HasForeignKey("RiskAssessmentId");
+            .HasForeignKey("RiskAssessment_Id");
 
         // LoanApplication has one Loan of type Loan
         modelBuilder.Entity<LoanApplication>()
             .HasOne(x => x.Loan)
             .WithMany()
-            .HasForeignKey("LoanId");
+            .HasForeignKey("Loan_Id");
 
 
         // RiskAssessment has one Application of type LoanApplication
         modelBuilder.Entity<RiskAssessment>()
             .HasOne(x => x.Application)
             .WithMany()
-            .HasForeignKey("ApplicationId");
+            .HasForeignKey("Application_Id");
 
 
         // Loan has one Customer of type Customer
         modelBuilder.Entity<Loan>()
             .HasOne(x => x.Customer)
             .WithMany()
-            .HasForeignKey("CustomerId");
+            .HasForeignKey("Customer_Id");
 
 
         // Loan has one or more Schedule of type RepaymentSchedule
         modelBuilder.Entity<RepaymentSchedule>()
             .HasOne<Loan>()
             .WithMany(parent => parent.Schedule)
-            .HasForeignKey("ScheduleId");
+            .HasForeignKey("Schedule_Id");
 
         // Loan has one or more Collateral of type Collateral
         modelBuilder.Entity<Collateral>()
             .HasOne<Loan>()
             .WithMany(parent => parent.Collateral)
-            .HasForeignKey("CollateralId");
+            .HasForeignKey("Collateral_Id");
 
         // Loan has one or more Transactions of type LoanTransaction
         modelBuilder.Entity<LoanTransaction>()
             .HasOne<Loan>()
             .WithMany(parent => parent.Transactions)
-            .HasForeignKey("TransactionsId");
+            .HasForeignKey("Transactions_Id");
 
         // RepaymentSchedule has one Loan of type Loan
         modelBuilder.Entity<RepaymentSchedule>()
             .HasOne(x => x.Loan)
             .WithMany()
-            .HasForeignKey("LoanId");
+            .HasForeignKey("Loan_Id");
 
 
         // RepaymentSchedule has one or more Payments of type Transaction
         modelBuilder.Entity<Transaction>()
             .HasOne<RepaymentSchedule>()
             .WithMany(parent => parent.Payments)
-            .HasForeignKey("PaymentsId");
+            .HasForeignKey("Payments_Id");
 
         // Collateral has one Loan of type Loan
         modelBuilder.Entity<Collateral>()
             .HasOne(x => x.Loan)
             .WithMany()
-            .HasForeignKey("LoanId");
+            .HasForeignKey("Loan_Id");
 
 
         // LoanTransaction has one Loan of type Loan
         modelBuilder.Entity<LoanTransaction>()
             .HasOne(x => x.Loan)
             .WithMany()
-            .HasForeignKey("LoanId");
+            .HasForeignKey("Loan_Id");
 
 
         // InvestmentPortfolio has one Customer of type Customer
         modelBuilder.Entity<InvestmentPortfolio>()
             .HasOne(x => x.Customer)
             .WithMany()
-            .HasForeignKey("CustomerId");
+            .HasForeignKey("Customer_Id");
 
 
         // InvestmentPortfolio has one or more Accounts of type InvestmentAccount
         modelBuilder.Entity<InvestmentAccount>()
             .HasOne<InvestmentPortfolio>()
             .WithMany(parent => parent.Accounts)
-            .HasForeignKey("AccountsId");
+            .HasForeignKey("Accounts_Id");
 
         // InvestmentPortfolio has one or more Orders of type TradeOrder
         modelBuilder.Entity<TradeOrder>()
             .HasOne<InvestmentPortfolio>()
             .WithMany(parent => parent.Orders)
-            .HasForeignKey("OrdersId");
+            .HasForeignKey("Orders_Id");
 
         // InvestmentPortfolio has one or more Holdings of type Position
         modelBuilder.Entity<Position>()
             .HasOne<InvestmentPortfolio>()
             .WithMany(parent => parent.Holdings)
-            .HasForeignKey("HoldingsId");
+            .HasForeignKey("Holdings_Id");
 
         // InvestmentAccount has one Portfolio of type InvestmentPortfolio
         modelBuilder.Entity<InvestmentAccount>()
             .HasOne(x => x.Portfolio)
             .WithMany()
-            .HasForeignKey("PortfolioId");
+            .HasForeignKey("Portfolio_Id");
 
 
         // InvestmentAccount has one or more Trades of type Trade
         modelBuilder.Entity<Trade>()
             .HasOne<InvestmentAccount>()
             .WithMany(parent => parent.Trades)
-            .HasForeignKey("TradesId");
+            .HasForeignKey("Trades_Id");
 
         // InvestmentAccount has one or more Orders of type TradeOrder
         modelBuilder.Entity<TradeOrder>()
             .HasOne<InvestmentAccount>()
             .WithMany(parent => parent.Orders)
-            .HasForeignKey("OrdersId");
+            .HasForeignKey("Orders_Id");
 
 
         // Security has one or more Positions of type Position
         modelBuilder.Entity<Position>()
             .HasOne<Security>()
             .WithMany(parent => parent.Positions)
-            .HasForeignKey("PositionsId");
+            .HasForeignKey("Positions_Id");
 
         // Security has one or more Trades of type Trade
         modelBuilder.Entity<Trade>()
             .HasOne<Security>()
             .WithMany(parent => parent.Trades)
-            .HasForeignKey("TradesId");
+            .HasForeignKey("Trades_Id");
 
         // Security has one or more Orders of type TradeOrder
         modelBuilder.Entity<TradeOrder>()
             .HasOne<Security>()
             .WithMany(parent => parent.Orders)
-            .HasForeignKey("OrdersId");
+            .HasForeignKey("Orders_Id");
 
         // Position has one Portfolio of type InvestmentPortfolio
         modelBuilder.Entity<Position>()
             .HasOne(x => x.Portfolio)
             .WithMany()
-            .HasForeignKey("PortfolioId");
+            .HasForeignKey("Portfolio_Id");
 
         // Position has one Security of type Security
         modelBuilder.Entity<Position>()
             .HasOne(x => x.Security)
             .WithMany()
-            .HasForeignKey("SecurityId");
+            .HasForeignKey("Security_Id");
 
 
         // TradeOrder has one Portfolio of type InvestmentPortfolio
         modelBuilder.Entity<TradeOrder>()
             .HasOne(x => x.Portfolio)
             .WithMany()
-            .HasForeignKey("PortfolioId");
+            .HasForeignKey("Portfolio_Id");
 
         // TradeOrder has one Security of type Security
         modelBuilder.Entity<TradeOrder>()
             .HasOne(x => x.Security)
             .WithMany()
-            .HasForeignKey("SecurityId");
+            .HasForeignKey("Security_Id");
 
 
         // TradeOrder has one or more Trades of type Trade
         modelBuilder.Entity<Trade>()
             .HasOne<TradeOrder>()
             .WithMany(parent => parent.Trades)
-            .HasForeignKey("TradesId");
+            .HasForeignKey("Trades_Id");
 
         // Trade has one Order of type TradeOrder
         modelBuilder.Entity<Trade>()
             .HasOne(x => x.Order)
             .WithMany()
-            .HasForeignKey("OrderId");
+            .HasForeignKey("Order_Id");
 
         // Trade has one Security of type Security
         modelBuilder.Entity<Trade>()
             .HasOne(x => x.Security)
             .WithMany()
-            .HasForeignKey("SecurityId");
+            .HasForeignKey("Security_Id");
 
         // Trade has one InvestmentAccount of type InvestmentAccount
         modelBuilder.Entity<Trade>()
             .HasOne(x => x.InvestmentAccount)
             .WithMany()
-            .HasForeignKey("InvestmentAccountId");
+            .HasForeignKey("InvestmentAccount_Id");
 
 
 
@@ -920,7 +920,7 @@ public DbSet<ExchangeRate> ExchangeRates => Set<ExchangeRate>();
         modelBuilder.Entity<FXQuote>()
             .HasOne<ExchangeRate>()
             .WithMany(parent => parent.UsedByQuotes)
-            .HasForeignKey("UsedByQuotesId");
+            .HasForeignKey("UsedByQuotes_Id");
 
     }
 }

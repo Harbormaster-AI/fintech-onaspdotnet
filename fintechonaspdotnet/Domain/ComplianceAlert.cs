@@ -8,7 +8,7 @@ public class ComplianceAlert
 
  public virtual long? CompliancealertId { get; set; } 
  public virtual string? AlertCode { get; set; } 
- public virtual DateTime? RaisedAt { get; set; } 
+ public virtual DateTime_? RaisedAt { get; set; } 
  public virtual string? Notes { get; set; } 
 public virtual Screening? Screening { get; set; } 
 public virtual Transaction? Transaction { get; set; } 

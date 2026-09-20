@@ -10,8 +10,8 @@ public class Transaction
  public virtual Money? Amount { get; set; } 
  public virtual Money? Fee { get; set; } 
  public virtual decimal? ExchangeRate { get; set; } 
- public virtual DateTime? CreatedAt { get; set; } 
- public virtual DateTime? CompletedAt { get; set; } 
+ public virtual DateTime_? CreatedAt { get; set; } 
+ public virtual DateTime_? CompletedAt { get; set; } 
  public virtual string? Narrative { get; set; } 
 public virtual Account? Account { get; set; } 
 public virtual Wallet? Wallet { get; set; } 

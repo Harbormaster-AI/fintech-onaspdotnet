@@ -8,8 +8,8 @@ public class SettlementBatch
 
  public virtual long? SettlementbatchId { get; set; } 
  public virtual string? BatchId { get; set; } 
- public virtual DateTime? PeriodStart { get; set; } 
- public virtual DateTime? PeriodEnd { get; set; } 
+ public virtual DateTime_? PeriodStart { get; set; } 
+ public virtual DateTime_? PeriodEnd { get; set; } 
  public virtual Money? TotalVolume { get; set; } 
  public virtual int? TotalCount { get; set; } 
 public virtual PaymentProcessor? Processor { get; set; } 

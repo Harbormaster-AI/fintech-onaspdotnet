@@ -8,7 +8,7 @@ public class VerifiedAddress
 
  public virtual long? VerifiedaddressId { get; set; } 
  public virtual Address? Address { get; set; } 
- public virtual DateTime? VerifiedAt { get; set; } 
+ public virtual DateTime_? VerifiedAt { get; set; } 
 public virtual KYCProfile? KycProfile { get; set; } 
  public virtual VerificationStatus? VerificationStatus { get; set; } 
 

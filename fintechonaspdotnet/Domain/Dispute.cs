@@ -8,8 +8,8 @@ public class Dispute
 
  public virtual long? DisputeId { get; set; } 
  public virtual string? DisputeReference { get; set; } 
- public virtual DateTime? OpenedAt { get; set; } 
- public virtual DateTime? ClosedAt { get; set; } 
+ public virtual DateTime_? OpenedAt { get; set; } 
+ public virtual DateTime_? ClosedAt { get; set; } 
 public virtual Transaction? Transaction { get; set; } 
 public virtual PaymentCard? Card { get; set; } 
 public virtual Merchant? Merchant { get; set; } 

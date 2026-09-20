@@ -8,7 +8,7 @@ public class DirectDebitMandate
 
  public virtual long? DirectdebitmandateId { get; set; } 
  public virtual string? MandateId { get; set; } 
- public virtual DateTime? SignedAt { get; set; } 
+ public virtual DateTime_? SignedAt { get; set; } 
 public virtual Account? Account { get; set; } 
 public virtual Creditor? Creditor { get; set; } 
  public virtual DirectDebitScheme? Scheme { get; set; } 

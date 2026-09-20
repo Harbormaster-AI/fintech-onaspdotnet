@@ -9,7 +9,7 @@ public class InvestmentPortfolio
  public virtual long? InvestmentportfolioId { get; set; } 
  public virtual string? PortfolioCode { get; set; } 
  public virtual string? BaseCurrency { get; set; } 
- public virtual DateTime? CreatedAt { get; set; } 
+ public virtual DateTime_? CreatedAt { get; set; } 
 public virtual Customer? Customer { get; set; } 
 public virtual ICollection<InvestmentAccount> Accounts { get; set; } = new List<InvestmentAccount>();
 public virtual ICollection<TradeOrder> Orders { get; set; } = new List<TradeOrder>();

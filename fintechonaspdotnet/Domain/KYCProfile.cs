@@ -8,7 +8,7 @@ public class KYCProfile
 
  public virtual long? KycprofileId { get; set; } 
  public virtual string? ProfileId { get; set; } 
- public virtual DateTime? CreatedAt { get; set; } 
+ public virtual DateTime_? CreatedAt { get; set; } 
 public virtual Customer? Customer { get; set; } 
 public virtual ICollection<KYCDocument> Documents { get; set; } = new List<KYCDocument>();
 public virtual ICollection<Screening> Screenings { get; set; } = new List<Screening>();

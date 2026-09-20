@@ -7,7 +7,7 @@ public class Trade
     public Guid Id { get; set; } = Guid.NewGuid();
 
  public virtual long? TradeId { get; set; } 
- public virtual DateTime? ExecutedAt { get; set; } 
+ public virtual DateTime_? ExecutedAt { get; set; } 
  public virtual decimal? Quantity { get; set; } 
  public virtual Money? Price { get; set; } 
  public virtual Money? Fees { get; set; } 

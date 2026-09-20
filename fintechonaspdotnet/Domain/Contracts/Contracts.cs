@@ -178,7 +178,7 @@ public class CustomerResponse : CustomerRequest {
 public class KYCProfileRequest {
     public Guid Id { get; set; } = Guid.NewGuid();
  public virtual string? ProfileId { get; set; } 
- public virtual DateTime? CreatedAt { get; set; } 
+ public virtual DateTime_? CreatedAt { get; set; } 
  public virtual KYCStatus? Status { get; set; } 
  public virtual VerificationLevel? VerificationLevel { get; set; } 
 }
@@ -220,7 +220,7 @@ public class KYCDocumentResponse : KYCDocumentRequest {
 public class ScreeningRequest {
     public Guid Id { get; set; } = Guid.NewGuid();
  public virtual RiskScore? Score { get; set; } 
- public virtual DateTime? ScreenedAt { get; set; } 
+ public virtual DateTime_? ScreenedAt { get; set; } 
  public virtual ScreeningType? ScreeningType { get; set; } 
  public virtual ScreeningStatus? Status { get; set; } 
 }
@@ -240,7 +240,7 @@ public class ScreeningResponse : ScreeningRequest {
 public class VerifiedAddressRequest {
     public Guid Id { get; set; } = Guid.NewGuid();
  public virtual Address? Address { get; set; } 
- public virtual DateTime? VerifiedAt { get; set; } 
+ public virtual DateTime_? VerifiedAt { get; set; } 
  public virtual VerificationStatus? VerificationStatus { get; set; } 
 }
 
@@ -278,7 +278,7 @@ public class CompliancePolicyResponse : CompliancePolicyRequest {
 public class ComplianceAlertRequest {
     public Guid Id { get; set; } = Guid.NewGuid();
  public virtual string? AlertCode { get; set; } 
- public virtual DateTime? RaisedAt { get; set; } 
+ public virtual DateTime_? RaisedAt { get; set; } 
  public virtual string? Notes { get; set; } 
  public virtual AlertSeverity? Severity { get; set; } 
  public virtual AlertStatus? Status { get; set; } 
@@ -299,8 +299,8 @@ public class ComplianceAlertResponse : ComplianceAlertRequest {
 
 public class ConsentRequest {
     public Guid Id { get; set; } = Guid.NewGuid();
- public virtual DateTime? GrantedAt { get; set; } 
- public virtual DateTime? ExpiresAt { get; set; } 
+ public virtual DateTime_? GrantedAt { get; set; } 
+ public virtual DateTime_? ExpiresAt { get; set; } 
  public virtual string? Scope { get; set; } 
  public virtual ConsentType? ConsentType { get; set; } 
  public virtual ConsentStatus? Status { get; set; } 
@@ -436,7 +436,7 @@ public class PaymentCardResponse : PaymentCardRequest {
 public class CardTokenizationRequest {
     public Guid Id { get; set; } = Guid.NewGuid();
  public virtual string? TokenReference { get; set; } 
- public virtual DateTime? CreatedAt { get; set; } 
+ public virtual DateTime_? CreatedAt { get; set; } 
  public virtual WalletProvider? WalletProvider { get; set; } 
  public virtual TokenizationStatus? Status { get; set; } 
 }
@@ -534,8 +534,8 @@ public class TransactionRequest {
  public virtual Money? Amount { get; set; } 
  public virtual Money? Fee { get; set; } 
  public virtual decimal? ExchangeRate { get; set; } 
- public virtual DateTime? CreatedAt { get; set; } 
- public virtual DateTime? CompletedAt { get; set; } 
+ public virtual DateTime_? CreatedAt { get; set; } 
+ public virtual DateTime_? CompletedAt { get; set; } 
  public virtual string? Narrative { get; set; } 
  public virtual TransactionType? TransactionType { get; set; } 
  public virtual TransactionStatus? Status { get; set; } 
@@ -626,8 +626,8 @@ public class FXQuoteRequest {
  public virtual string? BaseCurrency { get; set; } 
  public virtual string? QuoteCurrency { get; set; } 
  public virtual decimal? Rate { get; set; } 
- public virtual DateTime? QuotedAt { get; set; } 
- public virtual DateTime? ExpiresAt { get; set; } 
+ public virtual DateTime_? QuotedAt { get; set; } 
+ public virtual DateTime_? ExpiresAt { get; set; } 
  public virtual FXPriceType? PriceType { get; set; } 
 }
 
@@ -674,8 +674,8 @@ public class FXDealResponse : FXDealRequest {
 public class SettlementBatchRequest {
     public Guid Id { get; set; } = Guid.NewGuid();
  public virtual string? BatchId { get; set; } 
- public virtual DateTime? PeriodStart { get; set; } 
- public virtual DateTime? PeriodEnd { get; set; } 
+ public virtual DateTime_? PeriodStart { get; set; } 
+ public virtual DateTime_? PeriodEnd { get; set; } 
  public virtual Money? TotalVolume { get; set; } 
  public virtual int? TotalCount { get; set; } 
  public virtual SettlementStatus? Status { get; set; } 
@@ -722,8 +722,8 @@ public class PayoutResponse : PayoutRequest {
 public class DisputeRequest {
     public Guid Id { get; set; } = Guid.NewGuid();
  public virtual string? DisputeReference { get; set; } 
- public virtual DateTime? OpenedAt { get; set; } 
- public virtual DateTime? ClosedAt { get; set; } 
+ public virtual DateTime_? OpenedAt { get; set; } 
+ public virtual DateTime_? ClosedAt { get; set; } 
  public virtual DisputeReason? Reason { get; set; } 
  public virtual DisputeStatus? Status { get; set; } 
 }
@@ -745,7 +745,7 @@ public class ChargebackRequest {
     public Guid Id { get; set; } = Guid.NewGuid();
  public virtual string? ChargebackReference { get; set; } 
  public virtual Money? Amount { get; set; } 
- public virtual DateTime? PostedAt { get; set; } 
+ public virtual DateTime_? PostedAt { get; set; } 
  public virtual ChargebackStage? Stage { get; set; } 
  public virtual ChargebackStatus? Status { get; set; } 
 }
@@ -794,7 +794,7 @@ public class AccountStatementRequest {
  public virtual DateOnly? PeriodEnd { get; set; } 
  public virtual Money? OpeningBalance { get; set; } 
  public virtual Money? ClosingBalance { get; set; } 
- public virtual DateTime? GeneratedAt { get; set; } 
+ public virtual DateTime_? GeneratedAt { get; set; } 
 }
 
 public class AccountStatementResponse : AccountStatementRequest {
@@ -814,7 +814,7 @@ public class AccountStatementResponse : AccountStatementRequest {
 public class DirectDebitMandateRequest {
     public Guid Id { get; set; } = Guid.NewGuid();
  public virtual string? MandateId { get; set; } 
- public virtual DateTime? SignedAt { get; set; } 
+ public virtual DateTime_? SignedAt { get; set; } 
  public virtual DirectDebitScheme? Scheme { get; set; } 
  public virtual MandateStatus? Status { get; set; } 
 }
@@ -854,7 +854,7 @@ public class LoanApplicationRequest {
  public virtual string? ApplicationNumber { get; set; } 
  public virtual Money? AmountRequested { get; set; } 
  public virtual int? TermMonths { get; set; } 
- public virtual DateTime? SubmittedAt { get; set; } 
+ public virtual DateTime_? SubmittedAt { get; set; } 
  public virtual LoanProductType? Product { get; set; } 
  public virtual LoanPurpose? Purpose { get; set; } 
  public virtual ApplicationStatus? Status { get; set; } 
@@ -878,7 +878,7 @@ public class LoanApplicationResponse : LoanApplicationRequest {
 public class RiskAssessmentRequest {
     public Guid Id { get; set; } = Guid.NewGuid();
  public virtual RiskScore? Score { get; set; } 
- public virtual DateTime? AssessedAt { get; set; } 
+ public virtual DateTime_? AssessedAt { get; set; } 
  public virtual string? ModelVersion { get; set; } 
  public virtual string? Notes { get; set; } 
  public virtual DecisionOutcome? Decision { get; set; } 
@@ -991,7 +991,7 @@ public class InvestmentPortfolioRequest {
     public Guid Id { get; set; } = Guid.NewGuid();
  public virtual string? PortfolioCode { get; set; } 
  public virtual string? BaseCurrency { get; set; } 
- public virtual DateTime? CreatedAt { get; set; } 
+ public virtual DateTime_? CreatedAt { get; set; } 
  public virtual PortfolioStatus? Status { get; set; } 
 }
 
@@ -1074,7 +1074,7 @@ public class TradeOrderRequest {
  public virtual string? OrderId { get; set; } 
  public virtual decimal? Quantity { get; set; } 
  public virtual Money? LimitPrice { get; set; } 
- public virtual DateTime? PlacedAt { get; set; } 
+ public virtual DateTime_? PlacedAt { get; set; } 
  public virtual OrderSide? Side { get; set; } 
  public virtual OrderType? Type { get; set; } 
  public virtual OrderStatus? Status { get; set; } 
@@ -1099,7 +1099,7 @@ public class TradeOrderResponse : TradeOrderRequest {
 
 public class TradeRequest {
     public Guid Id { get; set; } = Guid.NewGuid();
- public virtual DateTime? ExecutedAt { get; set; } 
+ public virtual DateTime_? ExecutedAt { get; set; } 
  public virtual decimal? Quantity { get; set; } 
  public virtual Money? Price { get; set; } 
  public virtual Money? Fees { get; set; } 
@@ -1124,7 +1124,7 @@ public class ExchangeRateRequest {
  public virtual string? BaseCurrency { get; set; } 
  public virtual string? QuoteCurrency { get; set; } 
  public virtual decimal? Rate { get; set; } 
- public virtual DateTime? AsOf { get; set; } 
+ public virtual DateTime_? AsOf { get; set; } 
  public virtual string? Source { get; set; } 
 }
 

@@ -10,7 +10,7 @@ public class ExchangeRate
  public virtual string? BaseCurrency { get; set; } 
  public virtual string? QuoteCurrency { get; set; } 
  public virtual decimal? Rate { get; set; } 
- public virtual DateTime? AsOf { get; set; } 
+ public virtual DateTime_? AsOf { get; set; } 
  public virtual string? Source { get; set; } 
 public virtual ICollection<FXQuote> UsedByQuotes { get; set; } = new List<FXQuote>();
 
