@@ -1,4 +1,7 @@
+
+using fintechonaspdotnet.Contracts;
 using fintechonaspdotnet.Domain;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace fintechonaspdotnet.Persistence;
@@ -48,4 +51,41 @@ public class DisputeRepository : IDisputeRepository
         _db.Disputes.Remove(dispute);
         await _db.SaveChangesAsync(cancellationToken);
     }
+
+
+    public async Task AddToChargebacksAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.Chargebacks
+            .Where(chargeback =>
+                request.ChildIds.Contains(chargeback.Id))
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    chargeback =>
+                        EF.Property<Guid?>(
+                            chargeback,
+                            "ExchangeRate_Id"),
+                    request.ParentId));
+    }
+
+    public async Task RemoveFromChargebacksAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.Chargebacks
+            .Where(chargeback =>
+                request.ChildIds.Contains(chargeback.Id) &&
+                EF.Property<Guid?>(
+                    chargeback,
+                    "ExchangeRate_Id") == request.ParentId)
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    chargeback =>
+                        EF.Property<Guid?>(
+                            chargeback,
+                            "ExchangeRate_Id"),
+                    (Guid?)null));
+    }
+
 }

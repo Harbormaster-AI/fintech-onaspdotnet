@@ -1,4 +1,7 @@
+
+using fintechonaspdotnet.Contracts;
 using fintechonaspdotnet.Domain;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace fintechonaspdotnet.Persistence;
@@ -46,4 +49,5 @@ public class PositionRepository : IPositionRepository
         _db.Positions.Remove(position);
         await _db.SaveChangesAsync(cancellationToken);
     }
+
 }

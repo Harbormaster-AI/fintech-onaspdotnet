@@ -1,6 +1,8 @@
+
 using fintechonaspdotnet.Domain;
 using fintechonaspdotnet.Persistence;
 using fintechonaspdotnet.Contracts;
+using fintechonaspdotnet.Telemetry;
 
 namespace fintechonaspdotnet.Service;
 
@@ -11,7 +13,6 @@ public interface ICompliancePolicyService {
     Task<CompliancePolicy?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
     Task<IReadOnlyList<CompliancePolicy>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
-
     // ------------------------------
     // Single Associations
     // -------------------------------
@@ -23,27 +24,38 @@ public interface ICompliancePolicyService {
 
 public class CompliancePolicyService : ICompliancePolicyService
 {
+    private readonly ApplicationTelemetry _telemetry;
     private readonly ICompliancePolicyRepository _repository;
     private readonly ILogger<CompliancePolicyService> _logger;
+    private readonly IServiceResolver _serviceResolver;
+
 
     public CompliancePolicyService(
-        ICompliancePolicyRepository repository, ILogger<CompliancePolicyService> logger )
+        ApplicationTelemetry telemetry,
+        ICompliancePolicyRepository repository,
+        ILogger<CompliancePolicyService> logger,
+        IServiceResolver serviceResolver)
     {
+        _telemetry = telemetry;
         _repository = repository;
         _logger = logger;
+        _serviceResolver = serviceResolver;
     }
-
 
     public async Task Create(CompliancePolicy model, CancellationToken cancellationToken)
     {
-
-         try
+        try
         {
-            await _repository.AddAsync(model, cancellationToken);
+            await _telemetry.Execute(
+                "CompliancePolicy",
+                "CreateCompliancePolicy",
+                () => _repository.AddAsync(model, cancellationToken));
         }
         catch (Exception ex)
         {
-            _logger.LogError($"Unexpected Error: {ex.Message}");
+            _logger.LogError(
+                    ex,
+                    "Unexpected error while creating Transaction.");
         }
     }
 
@@ -60,11 +72,16 @@ public class CompliancePolicyService : ICompliancePolicyService
             existing.Description = model.Description;
             existing.Status = model.Status;
 
-            await _repository.UpdateAsync(existing, cancellationToken);
+            await _telemetry.Execute(
+                "CompliancePolicy",
+                "UpdateCompliancePolicy",
+                () => _repository.UpdateAsync(existing, cancellationToken));
         }
         catch (Exception ex)
         {
-            _logger.LogError($"Unexpected Error: {ex.Message}");
+            _logger.LogError(
+                    ex,
+                    "Unexpected error while creating Transaction.");
             return false;
         }
         return true;
@@ -86,21 +103,71 @@ public class CompliancePolicyService : ICompliancePolicyService
 
         try
         {
-            await _repository.DeleteAsync(existing, cancellationToken);
+            await _telemetry.Execute(
+                "CompliancePolicy",
+                "UpdateCompliancePolicy",
+                () => _repository.DeleteAsync(existing, cancellationToken));
         }
         catch (Exception ex)
         {
-            _logger.LogError($"Unexpected Error: {ex.Message}");
+            _logger.LogError(
+                    ex,
+                    "Unexpected error while creating Transaction.");
             return false;
         }
         return true;
-
     }
 
     public async Task<bool> AssignInstitution(AssociationRequest request, CancellationToken cancellationToken) {
+
+        var parent = await _repository.GetByIdAsync(request.ParentId, cancellationToken);
+        if (parent is null)
+        {
+            _logger.LogError("No CompliancePolicy found using Id {ParentId}", request.ParentId);
+            return false;
+        }
+
+        try
+        {
+            var childRequest = new IdentifierRequest
+            {
+                Id = request.ChildId,
+            };
+
+            var child = await _serviceResolver.Get<FinancialInstitutionService>().Get(childRequest, cancellationToken);
+            parent.Institution = child;
+            await Update( parent, cancellationToken );
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(
+                    ex,
+                    "Unexpected error while creating Transaction.");
+            return false;
+        }
         return true;
     }
+
     public async Task<bool> UnassignInstitution(AssociationRequest request, CancellationToken cancellationToken) {
+        var parent = await _repository.GetByIdAsync(request.ParentId, cancellationToken);
+        if (parent is null)
+        {
+            _logger.LogError("No CompliancePolicy found using Id {ParentId}", request.ParentId);
+            return false;
+        }
+
+        try
+        {
+            parent.Institution = null;
+            await Update( parent, cancellationToken );
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(
+                    ex,
+                    "Unexpected error while creating Transaction.");
+            return false;
+        }
         return true;
     }
 

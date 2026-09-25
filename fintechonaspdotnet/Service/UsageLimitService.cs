@@ -1,6 +1,8 @@
+
 using fintechonaspdotnet.Domain;
 using fintechonaspdotnet.Persistence;
 using fintechonaspdotnet.Contracts;
+using fintechonaspdotnet.Telemetry;
 
 namespace fintechonaspdotnet.Service;
 
@@ -11,7 +13,6 @@ public interface IUsageLimitService {
     Task<UsageLimit?> Get(IdentifierRequest identifier, CancellationToken cancellationToken);
     Task<IReadOnlyList<UsageLimit>> GetAll(CancellationToken cancellationToken);
     Task<bool> Delete(IdentifierRequest identifier, CancellationToken cancellationToken);
-
     // ------------------------------
     // Single Associations
     // -------------------------------
@@ -23,27 +24,38 @@ public interface IUsageLimitService {
 
 public class UsageLimitService : IUsageLimitService
 {
+    private readonly ApplicationTelemetry _telemetry;
     private readonly IUsageLimitRepository _repository;
     private readonly ILogger<UsageLimitService> _logger;
+    private readonly IServiceResolver _serviceResolver;
+
 
     public UsageLimitService(
-        IUsageLimitRepository repository, ILogger<UsageLimitService> logger )
+        ApplicationTelemetry telemetry,
+        IUsageLimitRepository repository,
+        ILogger<UsageLimitService> logger,
+        IServiceResolver serviceResolver)
     {
+        _telemetry = telemetry;
         _repository = repository;
         _logger = logger;
+        _serviceResolver = serviceResolver;
     }
-
 
     public async Task Create(UsageLimit model, CancellationToken cancellationToken)
     {
-
-         try
+        try
         {
-            await _repository.AddAsync(model, cancellationToken);
+            await _telemetry.Execute(
+                "UsageLimit",
+                "CreateUsageLimit",
+                () => _repository.AddAsync(model, cancellationToken));
         }
         catch (Exception ex)
         {
-            _logger.LogError($"Unexpected Error: {ex.Message}");
+            _logger.LogError(
+                    ex,
+                    "Unexpected error while creating Transaction.");
         }
     }
 
@@ -61,11 +73,16 @@ public class UsageLimitService : IUsageLimitService
             existing.Scope = model.Scope;
             existing.Period = model.Period;
 
-            await _repository.UpdateAsync(existing, cancellationToken);
+            await _telemetry.Execute(
+                "UsageLimit",
+                "UpdateUsageLimit",
+                () => _repository.UpdateAsync(existing, cancellationToken));
         }
         catch (Exception ex)
         {
-            _logger.LogError($"Unexpected Error: {ex.Message}");
+            _logger.LogError(
+                    ex,
+                    "Unexpected error while creating Transaction.");
             return false;
         }
         return true;
@@ -87,21 +104,71 @@ public class UsageLimitService : IUsageLimitService
 
         try
         {
-            await _repository.DeleteAsync(existing, cancellationToken);
+            await _telemetry.Execute(
+                "UsageLimit",
+                "UpdateUsageLimit",
+                () => _repository.DeleteAsync(existing, cancellationToken));
         }
         catch (Exception ex)
         {
-            _logger.LogError($"Unexpected Error: {ex.Message}");
+            _logger.LogError(
+                    ex,
+                    "Unexpected error while creating Transaction.");
             return false;
         }
         return true;
-
     }
 
     public async Task<bool> AssignPricingPlan(AssociationRequest request, CancellationToken cancellationToken) {
+
+        var parent = await _repository.GetByIdAsync(request.ParentId, cancellationToken);
+        if (parent is null)
+        {
+            _logger.LogError("No UsageLimit found using Id {ParentId}", request.ParentId);
+            return false;
+        }
+
+        try
+        {
+            var childRequest = new IdentifierRequest
+            {
+                Id = request.ChildId,
+            };
+
+            var child = await _serviceResolver.Get<PricingPlanService>().Get(childRequest, cancellationToken);
+            parent.PricingPlan = child;
+            await Update( parent, cancellationToken );
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(
+                    ex,
+                    "Unexpected error while creating Transaction.");
+            return false;
+        }
         return true;
     }
+
     public async Task<bool> UnassignPricingPlan(AssociationRequest request, CancellationToken cancellationToken) {
+        var parent = await _repository.GetByIdAsync(request.ParentId, cancellationToken);
+        if (parent is null)
+        {
+            _logger.LogError("No UsageLimit found using Id {ParentId}", request.ParentId);
+            return false;
+        }
+
+        try
+        {
+            parent.PricingPlan = null;
+            await Update( parent, cancellationToken );
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(
+                    ex,
+                    "Unexpected error while creating Transaction.");
+            return false;
+        }
         return true;
     }
 

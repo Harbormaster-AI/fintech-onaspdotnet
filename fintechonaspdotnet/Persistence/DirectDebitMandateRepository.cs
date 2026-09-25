@@ -1,4 +1,7 @@
+
+using fintechonaspdotnet.Contracts;
 using fintechonaspdotnet.Domain;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace fintechonaspdotnet.Persistence;
@@ -46,4 +49,5 @@ public class DirectDebitMandateRepository : IDirectDebitMandateRepository
         _db.DirectDebitMandates.Remove(directDebitMandate);
         await _db.SaveChangesAsync(cancellationToken);
     }
+
 }

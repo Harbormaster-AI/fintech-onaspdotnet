@@ -1,4 +1,7 @@
+
+using fintechonaspdotnet.Contracts;
 using fintechonaspdotnet.Domain;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace fintechonaspdotnet.Persistence;
@@ -42,4 +45,113 @@ public class SecurityRepository : ISecurityRepository
         _db.Securitys.Remove(security);
         await _db.SaveChangesAsync(cancellationToken);
     }
+
+
+    public async Task AddToPositionsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.Positions
+            .Where(position =>
+                request.ChildIds.Contains(position.Id))
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    position =>
+                        EF.Property<Guid?>(
+                            position,
+                            "ExchangeRate_Id"),
+                    request.ParentId));
+    }
+
+    public async Task RemoveFromPositionsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.Positions
+            .Where(position =>
+                request.ChildIds.Contains(position.Id) &&
+                EF.Property<Guid?>(
+                    position,
+                    "ExchangeRate_Id") == request.ParentId)
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    position =>
+                        EF.Property<Guid?>(
+                            position,
+                            "ExchangeRate_Id"),
+                    (Guid?)null));
+    }
+
+
+    public async Task AddToTradesAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.Trades
+            .Where(trade =>
+                request.ChildIds.Contains(trade.Id))
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    trade =>
+                        EF.Property<Guid?>(
+                            trade,
+                            "ExchangeRate_Id"),
+                    request.ParentId));
+    }
+
+    public async Task RemoveFromTradesAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.Trades
+            .Where(trade =>
+                request.ChildIds.Contains(trade.Id) &&
+                EF.Property<Guid?>(
+                    trade,
+                    "ExchangeRate_Id") == request.ParentId)
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    trade =>
+                        EF.Property<Guid?>(
+                            trade,
+                            "ExchangeRate_Id"),
+                    (Guid?)null));
+    }
+
+
+    public async Task AddToOrdersAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.TradeOrders
+            .Where(tradeOrder =>
+                request.ChildIds.Contains(tradeOrder.Id))
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    tradeOrder =>
+                        EF.Property<Guid?>(
+                            tradeOrder,
+                            "ExchangeRate_Id"),
+                    request.ParentId));
+    }
+
+    public async Task RemoveFromOrdersAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.TradeOrders
+            .Where(tradeOrder =>
+                request.ChildIds.Contains(tradeOrder.Id) &&
+                EF.Property<Guid?>(
+                    tradeOrder,
+                    "ExchangeRate_Id") == request.ParentId)
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    tradeOrder =>
+                        EF.Property<Guid?>(
+                            tradeOrder,
+                            "ExchangeRate_Id"),
+                    (Guid?)null));
+    }
+
 }

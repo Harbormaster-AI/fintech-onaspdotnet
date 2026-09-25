@@ -1,4 +1,7 @@
+
+using fintechonaspdotnet.Contracts;
 using fintechonaspdotnet.Domain;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace fintechonaspdotnet.Persistence;
@@ -44,4 +47,41 @@ public class ProductOfferingRepository : IProductOfferingRepository
         _db.ProductOfferings.Remove(productOffering);
         await _db.SaveChangesAsync(cancellationToken);
     }
+
+
+    public async Task AddToPricingPlansAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.PricingPlans
+            .Where(pricingPlan =>
+                request.ChildIds.Contains(pricingPlan.Id))
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    pricingPlan =>
+                        EF.Property<Guid?>(
+                            pricingPlan,
+                            "ExchangeRate_Id"),
+                    request.ParentId));
+    }
+
+    public async Task RemoveFromPricingPlansAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.PricingPlans
+            .Where(pricingPlan =>
+                request.ChildIds.Contains(pricingPlan.Id) &&
+                EF.Property<Guid?>(
+                    pricingPlan,
+                    "ExchangeRate_Id") == request.ParentId)
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    pricingPlan =>
+                        EF.Property<Guid?>(
+                            pricingPlan,
+                            "ExchangeRate_Id"),
+                    (Guid?)null));
+    }
+
 }

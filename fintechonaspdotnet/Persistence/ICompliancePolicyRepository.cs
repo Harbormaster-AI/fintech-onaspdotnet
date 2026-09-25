@@ -1,4 +1,5 @@
 using fintechonaspdotnet.Domain;
+using fintechonaspdotnet.Contracts;
 
 namespace fintechonaspdotnet.Persistence;
 
@@ -9,4 +10,6 @@ public interface ICompliancePolicyRepository
     Task AddAsync(CompliancePolicy compliancePolicy, CancellationToken cancellationToken);
     Task UpdateAsync(CompliancePolicy compliancePolicy, CancellationToken cancellationToken);
     Task DeleteAsync(CompliancePolicy compliancePolicy, CancellationToken cancellationToken);
+
+
 }

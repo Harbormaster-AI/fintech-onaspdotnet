@@ -1,4 +1,5 @@
 using fintechonaspdotnet.Domain;
+using fintechonaspdotnet.Contracts;
 
 namespace fintechonaspdotnet.Persistence;
 
@@ -9,4 +10,8 @@ public interface IScreeningRepository
     Task AddAsync(Screening screening, CancellationToken cancellationToken);
     Task UpdateAsync(Screening screening, CancellationToken cancellationToken);
     Task DeleteAsync(Screening screening, CancellationToken cancellationToken);
+
+    Task AddToAlertsAsync( MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task RemoveFromAlertsAsync( MultipleAssociationRequest request, CancellationToken cancellationToken);
+
 }

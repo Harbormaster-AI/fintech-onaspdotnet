@@ -1,4 +1,5 @@
 using fintechonaspdotnet.Domain;
+using fintechonaspdotnet.Contracts;
 
 namespace fintechonaspdotnet.Persistence;
 
@@ -9,4 +10,10 @@ public interface IInvestmentAccountRepository
     Task AddAsync(InvestmentAccount investmentAccount, CancellationToken cancellationToken);
     Task UpdateAsync(InvestmentAccount investmentAccount, CancellationToken cancellationToken);
     Task DeleteAsync(InvestmentAccount investmentAccount, CancellationToken cancellationToken);
+
+    Task AddToTradesAsync( MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task RemoveFromTradesAsync( MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task AddToOrdersAsync( MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task RemoveFromOrdersAsync( MultipleAssociationRequest request, CancellationToken cancellationToken);
+
 }

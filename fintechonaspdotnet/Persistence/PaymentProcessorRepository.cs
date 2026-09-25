@@ -1,4 +1,7 @@
+
+using fintechonaspdotnet.Contracts;
 using fintechonaspdotnet.Domain;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace fintechonaspdotnet.Persistence;
@@ -42,4 +45,113 @@ public class PaymentProcessorRepository : IPaymentProcessorRepository
         _db.PaymentProcessors.Remove(paymentProcessor);
         await _db.SaveChangesAsync(cancellationToken);
     }
+
+
+    public async Task AddToInstitutionsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.FinancialInstitutions
+            .Where(financialInstitution =>
+                request.ChildIds.Contains(financialInstitution.Id))
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    financialInstitution =>
+                        EF.Property<Guid?>(
+                            financialInstitution,
+                            "ExchangeRate_Id"),
+                    request.ParentId));
+    }
+
+    public async Task RemoveFromInstitutionsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.FinancialInstitutions
+            .Where(financialInstitution =>
+                request.ChildIds.Contains(financialInstitution.Id) &&
+                EF.Property<Guid?>(
+                    financialInstitution,
+                    "ExchangeRate_Id") == request.ParentId)
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    financialInstitution =>
+                        EF.Property<Guid?>(
+                            financialInstitution,
+                            "ExchangeRate_Id"),
+                    (Guid?)null));
+    }
+
+
+    public async Task AddToContractsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.PaymentContracts
+            .Where(paymentContract =>
+                request.ChildIds.Contains(paymentContract.Id))
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    paymentContract =>
+                        EF.Property<Guid?>(
+                            paymentContract,
+                            "ExchangeRate_Id"),
+                    request.ParentId));
+    }
+
+    public async Task RemoveFromContractsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.PaymentContracts
+            .Where(paymentContract =>
+                request.ChildIds.Contains(paymentContract.Id) &&
+                EF.Property<Guid?>(
+                    paymentContract,
+                    "ExchangeRate_Id") == request.ParentId)
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    paymentContract =>
+                        EF.Property<Guid?>(
+                            paymentContract,
+                            "ExchangeRate_Id"),
+                    (Guid?)null));
+    }
+
+
+    public async Task AddToSettlementsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.SettlementBatchs
+            .Where(settlementBatch =>
+                request.ChildIds.Contains(settlementBatch.Id))
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    settlementBatch =>
+                        EF.Property<Guid?>(
+                            settlementBatch,
+                            "ExchangeRate_Id"),
+                    request.ParentId));
+    }
+
+    public async Task RemoveFromSettlementsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.SettlementBatchs
+            .Where(settlementBatch =>
+                request.ChildIds.Contains(settlementBatch.Id) &&
+                EF.Property<Guid?>(
+                    settlementBatch,
+                    "ExchangeRate_Id") == request.ParentId)
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    settlementBatch =>
+                        EF.Property<Guid?>(
+                            settlementBatch,
+                            "ExchangeRate_Id"),
+                    (Guid?)null));
+    }
+
 }

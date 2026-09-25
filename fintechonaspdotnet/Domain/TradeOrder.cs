@@ -1,3 +1,4 @@
+
 using fintechonaspdotnet.Contracts;
 
 namespace fintechonaspdotnet.Domain;
@@ -10,7 +11,7 @@ public class TradeOrder
  public virtual string? OrderId { get; set; } 
  public virtual decimal? Quantity { get; set; } 
  public virtual Money? LimitPrice { get; set; } 
- public virtual DateTime_? PlacedAt { get; set; } 
+ public virtual DateTime? PlacedAt { get; set; } 
 public virtual InvestmentPortfolio? Portfolio { get; set; } 
 public virtual Security? Security { get; set; } 
 public virtual ICollection<Trade> Trades { get; set; } = new List<Trade>();

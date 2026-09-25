@@ -1,4 +1,7 @@
+
+using fintechonaspdotnet.Contracts;
 using fintechonaspdotnet.Domain;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace fintechonaspdotnet.Persistence;
@@ -44,4 +47,41 @@ public class InvoiceRepository : IInvoiceRepository
         _db.Invoices.Remove(invoice);
         await _db.SaveChangesAsync(cancellationToken);
     }
+
+
+    public async Task AddToPaymentsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.PaymentOrders
+            .Where(paymentOrder =>
+                request.ChildIds.Contains(paymentOrder.Id))
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    paymentOrder =>
+                        EF.Property<Guid?>(
+                            paymentOrder,
+                            "ExchangeRate_Id"),
+                    request.ParentId));
+    }
+
+    public async Task RemoveFromPaymentsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.PaymentOrders
+            .Where(paymentOrder =>
+                request.ChildIds.Contains(paymentOrder.Id) &&
+                EF.Property<Guid?>(
+                    paymentOrder,
+                    "ExchangeRate_Id") == request.ParentId)
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    paymentOrder =>
+                        EF.Property<Guid?>(
+                            paymentOrder,
+                            "ExchangeRate_Id"),
+                    (Guid?)null));
+    }
+
 }

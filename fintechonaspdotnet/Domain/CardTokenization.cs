@@ -1,3 +1,4 @@
+
 using fintechonaspdotnet.Contracts;
 
 namespace fintechonaspdotnet.Domain;
@@ -8,7 +9,7 @@ public class CardTokenization
 
  public virtual long? CardtokenizationId { get; set; } 
  public virtual string? TokenReference { get; set; } 
- public virtual DateTime_? CreatedAt { get; set; } 
+ public virtual DateTime? CreatedAt { get; set; } 
 public virtual PaymentCard? Card { get; set; } 
  public virtual WalletProvider? WalletProvider { get; set; } 
  public virtual TokenizationStatus? Status { get; set; } 

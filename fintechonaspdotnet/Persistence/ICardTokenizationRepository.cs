@@ -1,4 +1,5 @@
 using fintechonaspdotnet.Domain;
+using fintechonaspdotnet.Contracts;
 
 namespace fintechonaspdotnet.Persistence;
 
@@ -9,4 +10,6 @@ public interface ICardTokenizationRepository
     Task AddAsync(CardTokenization cardTokenization, CancellationToken cancellationToken);
     Task UpdateAsync(CardTokenization cardTokenization, CancellationToken cancellationToken);
     Task DeleteAsync(CardTokenization cardTokenization, CancellationToken cancellationToken);
+
+
 }

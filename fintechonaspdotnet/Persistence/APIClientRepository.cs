@@ -1,4 +1,7 @@
+
+using fintechonaspdotnet.Contracts;
 using fintechonaspdotnet.Domain;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace fintechonaspdotnet.Persistence;
@@ -42,4 +45,41 @@ public class APIClientRepository : IAPIClientRepository
         _db.APIClients.Remove(aPIClient);
         await _db.SaveChangesAsync(cancellationToken);
     }
+
+
+    public async Task AddToConsentsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.Consents
+            .Where(consent =>
+                request.ChildIds.Contains(consent.Id))
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    consent =>
+                        EF.Property<Guid?>(
+                            consent,
+                            "ExchangeRate_Id"),
+                    request.ParentId));
+    }
+
+    public async Task RemoveFromConsentsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.Consents
+            .Where(consent =>
+                request.ChildIds.Contains(consent.Id) &&
+                EF.Property<Guid?>(
+                    consent,
+                    "ExchangeRate_Id") == request.ParentId)
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    consent =>
+                        EF.Property<Guid?>(
+                            consent,
+                            "ExchangeRate_Id"),
+                    (Guid?)null));
+    }
+
 }

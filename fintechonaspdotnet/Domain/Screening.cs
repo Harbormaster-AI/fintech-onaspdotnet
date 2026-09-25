@@ -1,3 +1,4 @@
+
 using fintechonaspdotnet.Contracts;
 
 namespace fintechonaspdotnet.Domain;
@@ -8,7 +9,7 @@ public class Screening
 
  public virtual long? ScreeningId { get; set; } 
  public virtual RiskScore? Score { get; set; } 
- public virtual DateTime_? ScreenedAt { get; set; } 
+ public virtual DateTime? ScreenedAt { get; set; } 
 public virtual KYCProfile? KycProfile { get; set; } 
 public virtual ICollection<ComplianceAlert> Alerts { get; set; } = new List<ComplianceAlert>();
  public virtual ScreeningType? ScreeningType { get; set; } 

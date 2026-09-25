@@ -1,4 +1,7 @@
+
+using fintechonaspdotnet.Contracts;
 using fintechonaspdotnet.Domain;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace fintechonaspdotnet.Persistence;
@@ -44,4 +47,5 @@ public class VerifiedAddressRepository : IVerifiedAddressRepository
         _db.VerifiedAddresss.Remove(verifiedAddress);
         await _db.SaveChangesAsync(cancellationToken);
     }
+
 }

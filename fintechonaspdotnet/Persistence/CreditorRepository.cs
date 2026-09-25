@@ -1,4 +1,7 @@
+
+using fintechonaspdotnet.Contracts;
 using fintechonaspdotnet.Domain;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace fintechonaspdotnet.Persistence;
@@ -42,4 +45,41 @@ public class CreditorRepository : ICreditorRepository
         _db.Creditors.Remove(creditor);
         await _db.SaveChangesAsync(cancellationToken);
     }
+
+
+    public async Task AddToMandatesAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.DirectDebitMandates
+            .Where(directDebitMandate =>
+                request.ChildIds.Contains(directDebitMandate.Id))
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    directDebitMandate =>
+                        EF.Property<Guid?>(
+                            directDebitMandate,
+                            "ExchangeRate_Id"),
+                    request.ParentId));
+    }
+
+    public async Task RemoveFromMandatesAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.DirectDebitMandates
+            .Where(directDebitMandate =>
+                request.ChildIds.Contains(directDebitMandate.Id) &&
+                EF.Property<Guid?>(
+                    directDebitMandate,
+                    "ExchangeRate_Id") == request.ParentId)
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    directDebitMandate =>
+                        EF.Property<Guid?>(
+                            directDebitMandate,
+                            "ExchangeRate_Id"),
+                    (Guid?)null));
+    }
+
 }

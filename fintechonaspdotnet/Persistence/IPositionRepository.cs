@@ -1,4 +1,5 @@
 using fintechonaspdotnet.Domain;
+using fintechonaspdotnet.Contracts;
 
 namespace fintechonaspdotnet.Persistence;
 
@@ -9,4 +10,6 @@ public interface IPositionRepository
     Task AddAsync(Position position, CancellationToken cancellationToken);
     Task UpdateAsync(Position position, CancellationToken cancellationToken);
     Task DeleteAsync(Position position, CancellationToken cancellationToken);
+
+
 }

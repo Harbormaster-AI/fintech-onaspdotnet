@@ -1,3 +1,4 @@
+
 using fintechonaspdotnet.Contracts;
 
 namespace fintechonaspdotnet.Domain;
@@ -10,8 +11,8 @@ public class FXQuote
  public virtual string? BaseCurrency { get; set; } 
  public virtual string? QuoteCurrency { get; set; } 
  public virtual decimal? Rate { get; set; } 
- public virtual DateTime_? QuotedAt { get; set; } 
- public virtual DateTime_? ExpiresAt { get; set; } 
+ public virtual DateTime? QuotedAt { get; set; } 
+ public virtual DateTime? ExpiresAt { get; set; } 
 public virtual Customer? RequestedBy { get; set; } 
  public virtual FXPriceType? PriceType { get; set; } 
 

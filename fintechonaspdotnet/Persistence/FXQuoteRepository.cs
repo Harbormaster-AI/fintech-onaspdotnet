@@ -1,4 +1,7 @@
+
+using fintechonaspdotnet.Contracts;
 using fintechonaspdotnet.Domain;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace fintechonaspdotnet.Persistence;
@@ -44,4 +47,5 @@ public class FXQuoteRepository : IFXQuoteRepository
         _db.FXQuotes.Remove(fXQuote);
         await _db.SaveChangesAsync(cancellationToken);
     }
+
 }

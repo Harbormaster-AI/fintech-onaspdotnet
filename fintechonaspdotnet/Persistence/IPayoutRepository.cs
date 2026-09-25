@@ -1,4 +1,5 @@
 using fintechonaspdotnet.Domain;
+using fintechonaspdotnet.Contracts;
 
 namespace fintechonaspdotnet.Persistence;
 
@@ -9,4 +10,6 @@ public interface IPayoutRepository
     Task AddAsync(Payout payout, CancellationToken cancellationToken);
     Task UpdateAsync(Payout payout, CancellationToken cancellationToken);
     Task DeleteAsync(Payout payout, CancellationToken cancellationToken);
+
+
 }

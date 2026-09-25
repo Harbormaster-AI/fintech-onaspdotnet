@@ -1,4 +1,5 @@
 using fintechonaspdotnet.Domain;
+using fintechonaspdotnet.Contracts;
 
 namespace fintechonaspdotnet.Persistence;
 
@@ -9,4 +10,6 @@ public interface IFXQuoteRepository
     Task AddAsync(FXQuote fXQuote, CancellationToken cancellationToken);
     Task UpdateAsync(FXQuote fXQuote, CancellationToken cancellationToken);
     Task DeleteAsync(FXQuote fXQuote, CancellationToken cancellationToken);
+
+
 }

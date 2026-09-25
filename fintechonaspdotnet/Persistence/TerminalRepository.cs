@@ -1,4 +1,7 @@
+
+using fintechonaspdotnet.Contracts;
 using fintechonaspdotnet.Domain;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace fintechonaspdotnet.Persistence;
@@ -44,4 +47,5 @@ public class TerminalRepository : ITerminalRepository
         _db.Terminals.Remove(terminal);
         await _db.SaveChangesAsync(cancellationToken);
     }
+
 }

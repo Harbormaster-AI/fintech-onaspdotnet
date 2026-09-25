@@ -1,4 +1,5 @@
 using fintechonaspdotnet.Domain;
+using fintechonaspdotnet.Contracts;
 
 namespace fintechonaspdotnet.Persistence;
 
@@ -9,4 +10,8 @@ public interface IDisputeRepository
     Task AddAsync(Dispute dispute, CancellationToken cancellationToken);
     Task UpdateAsync(Dispute dispute, CancellationToken cancellationToken);
     Task DeleteAsync(Dispute dispute, CancellationToken cancellationToken);
+
+    Task AddToChargebacksAsync( MultipleAssociationRequest request, CancellationToken cancellationToken);
+    Task RemoveFromChargebacksAsync( MultipleAssociationRequest request, CancellationToken cancellationToken);
+
 }

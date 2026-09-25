@@ -1,4 +1,7 @@
+
+using fintechonaspdotnet.Contracts;
 using fintechonaspdotnet.Domain;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace fintechonaspdotnet.Persistence;
@@ -44,4 +47,5 @@ public class CardTokenizationRepository : ICardTokenizationRepository
         _db.CardTokenizations.Remove(cardTokenization);
         await _db.SaveChangesAsync(cancellationToken);
     }
+
 }

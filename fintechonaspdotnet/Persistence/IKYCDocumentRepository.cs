@@ -1,4 +1,5 @@
 using fintechonaspdotnet.Domain;
+using fintechonaspdotnet.Contracts;
 
 namespace fintechonaspdotnet.Persistence;
 
@@ -9,4 +10,6 @@ public interface IKYCDocumentRepository
     Task AddAsync(KYCDocument kYCDocument, CancellationToken cancellationToken);
     Task UpdateAsync(KYCDocument kYCDocument, CancellationToken cancellationToken);
     Task DeleteAsync(KYCDocument kYCDocument, CancellationToken cancellationToken);
+
+
 }

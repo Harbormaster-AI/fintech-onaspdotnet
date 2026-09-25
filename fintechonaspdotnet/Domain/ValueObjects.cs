@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace fintechonaspdotnet.Domain;
 
+
     [ComplexType]
     public record Money(
     decimal Amount,
@@ -73,7 +74,7 @@ namespace fintechonaspdotnet.Domain;
     );
 
     [ComplexType]
-    public record DateTime_(
+    public record DateTime(
     string Value
     );
 

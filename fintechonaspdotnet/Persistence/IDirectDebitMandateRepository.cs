@@ -1,4 +1,5 @@
 using fintechonaspdotnet.Domain;
+using fintechonaspdotnet.Contracts;
 
 namespace fintechonaspdotnet.Persistence;
 
@@ -9,4 +10,6 @@ public interface IDirectDebitMandateRepository
     Task AddAsync(DirectDebitMandate directDebitMandate, CancellationToken cancellationToken);
     Task UpdateAsync(DirectDebitMandate directDebitMandate, CancellationToken cancellationToken);
     Task DeleteAsync(DirectDebitMandate directDebitMandate, CancellationToken cancellationToken);
+
+
 }

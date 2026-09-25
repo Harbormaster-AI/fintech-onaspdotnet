@@ -1,3 +1,4 @@
+
 using fintechonaspdotnet.Contracts;
 
 namespace fintechonaspdotnet.Domain;
@@ -12,7 +13,7 @@ public class AccountStatement
  public virtual DateOnly? PeriodEnd { get; set; } 
  public virtual Money? OpeningBalance { get; set; } 
  public virtual Money? ClosingBalance { get; set; } 
- public virtual DateTime_? GeneratedAt { get; set; } 
+ public virtual DateTime? GeneratedAt { get; set; } 
 public virtual Account? Account { get; set; } 
 
     public static AccountStatement FromRequest(AccountStatementRequest request) {

@@ -89,7 +89,7 @@ AccountIdentifier
 TransactionId
 CardNumberToken
 DocumentReference
-DateTime_
+DateTime
 
 ### Enums
 

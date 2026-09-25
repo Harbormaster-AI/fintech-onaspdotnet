@@ -1,4 +1,7 @@
+
+using fintechonaspdotnet.Contracts;
 using fintechonaspdotnet.Domain;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace fintechonaspdotnet.Persistence;
@@ -48,4 +51,5 @@ public class LoanApplicationRepository : ILoanApplicationRepository
         _db.LoanApplications.Remove(loanApplication);
         await _db.SaveChangesAsync(cancellationToken);
     }
+
 }

@@ -1,4 +1,7 @@
+
+using fintechonaspdotnet.Contracts;
 using fintechonaspdotnet.Domain;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace fintechonaspdotnet.Persistence;
@@ -46,4 +49,77 @@ public class PaymentCardRepository : IPaymentCardRepository
         _db.PaymentCards.Remove(paymentCard);
         await _db.SaveChangesAsync(cancellationToken);
     }
+
+
+    public async Task AddToTokenizationsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.CardTokenizations
+            .Where(cardTokenization =>
+                request.ChildIds.Contains(cardTokenization.Id))
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    cardTokenization =>
+                        EF.Property<Guid?>(
+                            cardTokenization,
+                            "ExchangeRate_Id"),
+                    request.ParentId));
+    }
+
+    public async Task RemoveFromTokenizationsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.CardTokenizations
+            .Where(cardTokenization =>
+                request.ChildIds.Contains(cardTokenization.Id) &&
+                EF.Property<Guid?>(
+                    cardTokenization,
+                    "ExchangeRate_Id") == request.ParentId)
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    cardTokenization =>
+                        EF.Property<Guid?>(
+                            cardTokenization,
+                            "ExchangeRate_Id"),
+                    (Guid?)null));
+    }
+
+
+    public async Task AddToDisputesAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.Disputes
+            .Where(dispute =>
+                request.ChildIds.Contains(dispute.Id))
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    dispute =>
+                        EF.Property<Guid?>(
+                            dispute,
+                            "ExchangeRate_Id"),
+                    request.ParentId));
+    }
+
+    public async Task RemoveFromDisputesAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.Disputes
+            .Where(dispute =>
+                request.ChildIds.Contains(dispute.Id) &&
+                EF.Property<Guid?>(
+                    dispute,
+                    "ExchangeRate_Id") == request.ParentId)
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    dispute =>
+                        EF.Property<Guid?>(
+                            dispute,
+                            "ExchangeRate_Id"),
+                    (Guid?)null));
+    }
+
 }

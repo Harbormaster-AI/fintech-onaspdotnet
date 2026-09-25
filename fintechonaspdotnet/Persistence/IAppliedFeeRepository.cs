@@ -1,4 +1,5 @@
 using fintechonaspdotnet.Domain;
+using fintechonaspdotnet.Contracts;
 
 namespace fintechonaspdotnet.Persistence;
 
@@ -9,4 +10,6 @@ public interface IAppliedFeeRepository
     Task AddAsync(AppliedFee appliedFee, CancellationToken cancellationToken);
     Task UpdateAsync(AppliedFee appliedFee, CancellationToken cancellationToken);
     Task DeleteAsync(AppliedFee appliedFee, CancellationToken cancellationToken);
+
+
 }

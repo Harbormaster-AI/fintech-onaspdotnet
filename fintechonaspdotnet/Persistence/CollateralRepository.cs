@@ -1,4 +1,7 @@
+
+using fintechonaspdotnet.Contracts;
 using fintechonaspdotnet.Domain;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace fintechonaspdotnet.Persistence;
@@ -44,4 +47,5 @@ public class CollateralRepository : ICollateralRepository
         _db.Collaterals.Remove(collateral);
         await _db.SaveChangesAsync(cancellationToken);
     }
+
 }

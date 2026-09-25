@@ -1,4 +1,5 @@
 using fintechonaspdotnet.Domain;
+using fintechonaspdotnet.Contracts;
 
 namespace fintechonaspdotnet.Persistence;
 
@@ -9,4 +10,6 @@ public interface ILoanTransactionRepository
     Task AddAsync(LoanTransaction loanTransaction, CancellationToken cancellationToken);
     Task UpdateAsync(LoanTransaction loanTransaction, CancellationToken cancellationToken);
     Task DeleteAsync(LoanTransaction loanTransaction, CancellationToken cancellationToken);
+
+
 }

@@ -1,4 +1,7 @@
+
+using fintechonaspdotnet.Contracts;
 using fintechonaspdotnet.Domain;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace fintechonaspdotnet.Persistence;
@@ -42,4 +45,41 @@ public class ExchangeRateRepository : IExchangeRateRepository
         _db.ExchangeRates.Remove(exchangeRate);
         await _db.SaveChangesAsync(cancellationToken);
     }
+
+
+    public async Task AddToUsedByQuotesAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.FXQuotes
+            .Where(fXQuote =>
+                request.ChildIds.Contains(fXQuote.Id))
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    fXQuote =>
+                        EF.Property<Guid?>(
+                            fXQuote,
+                            "ExchangeRate_Id"),
+                    request.ParentId));
+    }
+
+    public async Task RemoveFromUsedByQuotesAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.FXQuotes
+            .Where(fXQuote =>
+                request.ChildIds.Contains(fXQuote.Id) &&
+                EF.Property<Guid?>(
+                    fXQuote,
+                    "ExchangeRate_Id") == request.ParentId)
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    fXQuote =>
+                        EF.Property<Guid?>(
+                            fXQuote,
+                            "ExchangeRate_Id"),
+                    (Guid?)null));
+    }
+
 }

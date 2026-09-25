@@ -1,4 +1,7 @@
+
+using fintechonaspdotnet.Contracts;
 using fintechonaspdotnet.Domain;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace fintechonaspdotnet.Persistence;
@@ -44,4 +47,41 @@ public class WalletRepository : IWalletRepository
         _db.Wallets.Remove(wallet);
         await _db.SaveChangesAsync(cancellationToken);
     }
+
+
+    public async Task AddToTransactionsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.Transactions
+            .Where(transaction =>
+                request.ChildIds.Contains(transaction.Id))
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    transaction =>
+                        EF.Property<Guid?>(
+                            transaction,
+                            "ExchangeRate_Id"),
+                    request.ParentId));
+    }
+
+    public async Task RemoveFromTransactionsAsync(
+        MultipleAssociationRequest request,
+        CancellationToken cancellationToken)
+    {
+        await _db.Transactions
+            .Where(transaction =>
+                request.ChildIds.Contains(transaction.Id) &&
+                EF.Property<Guid?>(
+                    transaction,
+                    "ExchangeRate_Id") == request.ParentId)
+            .ExecuteUpdateAsync(setters =>
+                setters.SetProperty(
+                    transaction =>
+                        EF.Property<Guid?>(
+                            transaction,
+                            "ExchangeRate_Id"),
+                    (Guid?)null));
+    }
+
 }

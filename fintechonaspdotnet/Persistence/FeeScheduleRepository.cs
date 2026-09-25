@@ -1,4 +1,7 @@
+
+using fintechonaspdotnet.Contracts;
 using fintechonaspdotnet.Domain;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace fintechonaspdotnet.Persistence;
@@ -44,4 +47,5 @@ public class FeeScheduleRepository : IFeeScheduleRepository
         _db.FeeSchedules.Remove(feeSchedule);
         await _db.SaveChangesAsync(cancellationToken);
     }
+
 }

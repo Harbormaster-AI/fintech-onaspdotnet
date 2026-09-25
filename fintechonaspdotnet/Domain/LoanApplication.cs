@@ -1,3 +1,4 @@
+
 using fintechonaspdotnet.Contracts;
 
 namespace fintechonaspdotnet.Domain;
@@ -10,7 +11,7 @@ public class LoanApplication
  public virtual string? ApplicationNumber { get; set; } 
  public virtual Money? AmountRequested { get; set; } 
  public virtual int? TermMonths { get; set; } 
- public virtual DateTime_? SubmittedAt { get; set; } 
+ public virtual DateTime? SubmittedAt { get; set; } 
 public virtual Customer? Customer { get; set; } 
 public virtual RiskAssessment? RiskAssessment { get; set; } 
 public virtual Loan? Loan { get; set; } 

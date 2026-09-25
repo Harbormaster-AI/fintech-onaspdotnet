@@ -1,4 +1,7 @@
+
+using fintechonaspdotnet.Contracts;
 using fintechonaspdotnet.Domain;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace fintechonaspdotnet.Persistence;
@@ -48,4 +51,5 @@ public class TradeRepository : ITradeRepository
         _db.Trades.Remove(trade);
         await _db.SaveChangesAsync(cancellationToken);
     }
+
 }

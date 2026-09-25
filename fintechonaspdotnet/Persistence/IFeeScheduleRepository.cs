@@ -1,4 +1,5 @@
 using fintechonaspdotnet.Domain;
+using fintechonaspdotnet.Contracts;
 
 namespace fintechonaspdotnet.Persistence;
 
@@ -9,4 +10,6 @@ public interface IFeeScheduleRepository
     Task AddAsync(FeeSchedule feeSchedule, CancellationToken cancellationToken);
     Task UpdateAsync(FeeSchedule feeSchedule, CancellationToken cancellationToken);
     Task DeleteAsync(FeeSchedule feeSchedule, CancellationToken cancellationToken);
+
+
 }

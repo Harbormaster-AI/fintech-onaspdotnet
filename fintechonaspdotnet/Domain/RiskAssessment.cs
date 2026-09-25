@@ -1,3 +1,4 @@
+
 using fintechonaspdotnet.Contracts;
 
 namespace fintechonaspdotnet.Domain;
@@ -8,7 +9,7 @@ public class RiskAssessment
 
  public virtual long? RiskassessmentId { get; set; } 
  public virtual RiskScore? Score { get; set; } 
- public virtual DateTime_? AssessedAt { get; set; } 
+ public virtual DateTime? AssessedAt { get; set; } 
  public virtual string? ModelVersion { get; set; } 
  public virtual string? Notes { get; set; } 
 public virtual LoanApplication? Application { get; set; } 

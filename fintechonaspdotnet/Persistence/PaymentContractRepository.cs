@@ -1,4 +1,7 @@
+
+using fintechonaspdotnet.Contracts;
 using fintechonaspdotnet.Domain;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace fintechonaspdotnet.Persistence;
@@ -46,4 +49,5 @@ public class PaymentContractRepository : IPaymentContractRepository
         _db.PaymentContracts.Remove(paymentContract);
         await _db.SaveChangesAsync(cancellationToken);
     }
+
 }
