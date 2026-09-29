@@ -73,8 +73,3 @@ namespace fintechonaspdotnet.Domain;
     string Value
     );
 
-    [ComplexType]
-    public record DateTime(
-    string Value
-    );
-
